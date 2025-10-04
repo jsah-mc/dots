@@ -1,7 +1,6 @@
 {
   # Central feature flags
   configOptions = {
-    # GUI stuff
     hyprland = true;
     waybar = true;
     fonts = true;
@@ -10,6 +9,7 @@
     wlogout = true;
     gtk = true;
     extra = true;
+    matugen = true;
   };
 
   # Conditionally import modules
