@@ -1,28 +1,64 @@
-@import 'colors.css';
 * {
-	all: unset;
 	background-image: none;
-	transition: 400ms cubic-bezier(0.05, 0.7, 0.1, 1);
+	box-shadow: none;
+	border-radius: 25px;
 }
 
 window {
-	background: rgb(17,17,27);
+	background-color: rgba(30, 30, 46, 0.60);
 }
 
 button {
-	font-family: 'Material Symbols Outlined';
-	font-size: 10rem;
-	background-color: rgb(203, 166, 247);
-	color: rgb(17,17,27);
-	margin: 2rem;
-	border-radius: 2rem;
-	padding: 3rem;
+	border-radius: 0;
+	border-color: #cba6f7;
+	text-decoration-color: #cdd6f4;
+	color: #cdd6f4;
+	background-color: #181825;
+	border-style: solid;
+	border-width: 1px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 25%;
 }
 
-button:focus,
-button:active,
-button:hover {
-	background-color: rgb(205, 214, 244);
-	color: rgb(17,17,27);
-	border-radius: 4rem;
+button:focus, button:active, button:hover {
+	/* 20% Overlay 2, 80% mantle */
+	background-color: rgb(48, 50, 66);
+	outline-style: none;
+}
+
+#lock {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/lock.png"));
+}
+
+#logout {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/logout.png"));
+}
+
+#suspend {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/suspend.png"));
+}
+
+#hibernate {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/hibernate.png"));
+}
+
+#shutdown {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/shutdown.png"));
+}
+
+#reboot {
+	margin: 10px;
+	border-radius: 20px;
+	background-image: image(url("./icons/reboot.png"));
 }

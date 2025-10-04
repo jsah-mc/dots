@@ -12,8 +12,9 @@
     name = "Bibata-Modern-Classic";
     size = 20;
   };
-  
+
   home.packages = [
+    pkgs.hyprlock
     pkgs.hello
     pkgs.neovim
     pkgs.vscodium
@@ -27,7 +28,7 @@
     pkgs.material-symbols
     pkgs.wlogout
     pkgs.nixfmt-rfc-style
-    pkgs.swww
+    pkgs.hyprpaper
     pkgs.yazi
     pkgs.rofi
     pkgs.nwg-look
@@ -38,6 +39,7 @@
   xdg.configFile."hypr/hypridle.conf".source = ./dotfiles/hypr/hypridle.conf;
   xdg.configFile."hypr/hyprlock-colors.conf".source = ./dotfiles/hypr/hyprlock-colors.conf;
   xdg.configFile."hypr/mocha.conf".source = ./dotfiles/hypr/mocha.conf;
+  xdg.configFile."hypr/hyprpaper.conf".source = ./dotfiles/hypr/hyprpaper.conf;
 
   xdg.configFile."waybar/config.jsonc".source = ./dotfiles/waybar/config.jsonc;
   xdg.configFile."waybar/style.css".source = ./dotfiles/waybar/style.css;
@@ -51,7 +53,6 @@
   xdg.configFile."wlogout/style.css".source = ./dotfiles/wlogout/style.css;
 
   xdg.configFile."kitty/kitty.conf".source = ./dotfiles/kitty/kitty.conf;
-  xdg.configFile."kitty/mocha.conf".source = ./dotfiles/kitty/mocha.conf;
 
   home.file.".zshrc".source = ./dotfiles/.zshrc;
 
@@ -64,16 +65,21 @@
       ${builtins.readFile ./dotfiles/hyprland.conf}
     '';
   };
+  programs.zen-browser.enable = true;
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+      name = "catppuccin-mocha-mauve-compact";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "mauve" ];
         size = "compact";
-        tweaks = [ "rimless" "black" ];
         variant = "mocha";
       };
     };
-  };  programs.home-manager.enable = true;
+    iconTheme = {
+      name = "Tela circle dark";
+      package = pkgs.tela-circle-icon-theme;
+    };
+  };  
+  programs.home-manager.enable = true;
 }

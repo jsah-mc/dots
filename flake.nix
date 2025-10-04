@@ -6,9 +6,10 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
-  outputs = { nixpkgs, home-manager, catppuccin, ... }@inputs:
+  outputs = { nixpkgs, home-manager, catppuccin, zen-browser, ... }@inputs:
     let
     system = "x86_64-linux"; #current system
     pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
@@ -29,9 +30,12 @@
                                 useUserPackages = true;
                                 useGlobalPkgs = true;
                                 extraSpecialArgs = { inherit inputs; };
-				backupFileExtension = "bak";
-                                # Home manager config (configures programs like firefox, zsh, eww, etc)
-                                users.jsah-mc = (./. + "/home.nix");
+				                        backupFileExtension = "bak";
+                                users.jsah-mc.imports = [
+                                  ./home.nix
+                                  catppuccin.homeManagerModules.catppuccin
+                                  zen-browser.homeModules.beta
+                                ];
                             };
                         }
                         catppuccin.nixosModules.catppuccin
