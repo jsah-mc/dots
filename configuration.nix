@@ -55,7 +55,7 @@
   #################################################
   users.users.jsah-mc = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’
+    extraGroups = [ "wheel libvirtd" ]; # Enable ‘sudo’
     packages = with pkgs; [
       tree
     ];
@@ -74,6 +74,7 @@
   programs = {
     firefox.enable = true;
     hyprland.enable = true;
+    nix-ld.enable = true;
     # mtr.enable = true;
     # gnupg.agent = {
     #   enable = true;
@@ -91,6 +92,15 @@
     alacritty
     fuzzel
   ];
+  
+  #################################################
+  # Virtulization
+  #################################################
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = ["jsah-mc"];
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
 
   #################################################
   # Nix Package Manager Settings
