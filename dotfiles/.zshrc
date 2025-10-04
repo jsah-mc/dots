@@ -76,7 +76,12 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias ls='ls --color'
+alias ls='eza --icons'
+alias la='eza --icons -lah'
+alias ll='eza --icons -l'
+alias lt='eza --icons --tree'
+alias nixrebuild='sudo nixos-rebuild switch'
+alias dotsrebuid='sudo nixos-rebuild switch --flake ~/dots#'
 alias vim='nvim'
 alias c='clear'
 

@@ -34,6 +34,7 @@
     pkgs.nwg-look
     pkgs.fzf
     pkgs.zoxide
+    pkgs.eza
   ];
   xdg.configFile."hypr/hyprlock.conf".source = ./dotfiles/hypr/hyprlock.conf;
   xdg.configFile."hypr/hypridle.conf".source = ./dotfiles/hypr/hypridle.conf;
@@ -80,6 +81,11 @@
       name = "Tela circle dark";
       package = pkgs.tela-circle-icon-theme;
     };
-  };  
+  }; 
+  catppuccin = {
+    kitty = {
+      enable = true;
+    };
+  }; 
   programs.home-manager.enable = true;
 }
