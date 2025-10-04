@@ -1,80 +1,122 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  #################################################
-  # Boot Configuration
-  #################################################
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
+  # ───── Imports ─────
+  imports = [ ./hardware-configuration.nix ];
+
+  # ───── Bootloader ─────
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+      };
     };
-    # systemd-boot.enable = true;
+    plymouth.enable = true;
   };
 
-  boot.plymouth.enable = true;
-
-  #################################################
-  # Theming (Catppuccin)
-  #################################################
+  # ────── Theme ─────────
   catppuccin = {
     plymouth.enable = true;
     grub.enable = true;
     tty.enable = true;
   };
 
-  #################################################
-  # Networking
-  #################################################
+  # ───── Networking ─────
   networking = {
-    hostName = "JosephNixos-PC";
+    hostName = "nixos";
     networkmanager.enable = true;
+
+    # Firewall and SSH (uncomment if needed)
+    # firewall = {
+    #   enable = true;
+    #   allowedTCPPorts = [ 22 ];
+    # };
     # wireless.enable = true;
     # proxy.default = "http://user:password@proxy:port/";
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
-  #################################################
-  # Time & Locale
-  #################################################
-  time.timeZone = "America/Toronto";
+  # ───── Locale & Time ─────
+  time.timeZone = "America/New_York";
 
-  #################################################
-  # Sound
-  #################################################
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS        = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT    = "en_US.UTF-8";
+      LC_MONETARY       = "en_US.UTF-8";
+      LC_NAME           = "en_US.UTF-8";
+      LC_NUMERIC        = "en_US.UTF-8";
+      LC_PAPER          = "en_US.UTF-8";
+      LC_TELEPHONE      = "en_US.UTF-8";
+      LC_TIME           = "en_US.UTF-8";
+    };
   };
-  # services.pulseaudio.enable = true;
 
-  #################################################
-  # User Configuration
-  #################################################
+  # ───── Graphical Environment ─────
+  services = {
+    xserver = {
+      enable = true;
+      xkb.layout = "us";
+      xkb.variant = "";
+    };
+
+    displayManager.sddm.enable = true;
+
+    printing.enable = true;
+
+    # Touchpad (if needed)
+    # xserver.libinput.enable = true;
+
+    # PipeWire Audio
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      # jack.enable = true;
+    };
+
+    # Disable PulseAudio service since PipeWire replaces it
+    pulseaudio.enable = false;
+  };
+
+  security.rtkit.enable = true;
+
+  # ───── Users ─────
   users.users.jsah-mc = {
     isNormalUser = true;
-    extraGroups = [ "wheel libvirtd" ]; # Enable ‘sudo’
+    description = "Joseph Sah";
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      tree
+      kdePackages.kate
+      # thunderbird
     ];
   };
-
-  #################################################
-  # Services
-  #################################################
-  services.openssh.enable = true;
-  # services.printing.enable = true;
-  # services.libinput.enable = true;
-
-  #################################################
-  # Programs & GUI
-  #################################################
+  
+  security.sudo = {
+	enable = true;
+	extraRules = [
+		{
+			groups = [ "wheel" ];
+			commands = [ "ALL" ];
+		}
+	];
+	wheelNeedsPassword = false;
+  };
+  
+  # ───── Programs ─────
   programs = {
     firefox.enable = true;
     hyprland.enable = true;
-    nix-ld.enable = true;
+
+    # Uncomment to enable more system programs
     # mtr.enable = true;
     # gnupg.agent = {
     #   enable = true;
@@ -82,33 +124,16 @@
     # };
   };
 
-  #################################################
-  # Environment & Packages
-  #################################################
+  # ───── Packages ─────
   environment.systemPackages = with pkgs; [
-    vim         # Recommended: add a text editor
+    vim
     wget
-    kitty
-    alacritty
-    fuzzel
+    git
   ];
-  
-  #################################################
-  # Virtulization
-  #################################################
-  programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["jsah-mc"];
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
+  # ───── Nix ─────
+  nixpkgs.config.allowUnfree = true;
 
-  #################################################
-  # Nix Package Manager Settings
-  #################################################
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  #################################################
-  # System Version
-  #################################################
-  system.stateVersion = "25.05"; # Did you read the comment?
+  # ───── System Version ─────
+  system.stateVersion = "25.05";
 }

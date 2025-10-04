@@ -44,7 +44,7 @@
     };
     in {
         nixosConfigurations = {
-	  JosephNixos-PC = mkSystem inputs.nixpkgs "x86_64-linux" "JosephNixos-PC";
+	  nixos = mkSystem inputs.nixpkgs "x86_64-linux" "nixos";
 	};
     };
 }
