@@ -1,20 +1,30 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ... }:
 
+with lib;
+let
+  cfg = config.modules;
+in
 {
-  home.packages = [
-    pkgs.fzf
-    pkgs.zoxide
-    pkgs.eza
-    pkgs.yazi
-    pkgs.zsh
-    pkgs.kitty
-    pkgs.git
-    pkgs.gh
-  ];
-  xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
-  home.file.".zshrc".source = ./.zshrc;
+  options.modules.cli.enable = mkEnableOption "Enable CLI tools, Zsh, and Kitty terminal";
 
-  catppuccin = {
-    kitty.enable = true;
+  config = mkIf cfg.cli.enable {
+    home.packages = with pkgs; [
+      fzf
+      zoxide
+      eza
+      yazi
+      zsh
+      kitty
+      git
+      gh
+    ];
+
+    xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+    home.file.".zshrc".source = ./.zshrc;
+
+    # Enable Catppuccin theme in Kitty
+    catppuccin = {
+      kitty.enable = true;
+    };
   };
 }

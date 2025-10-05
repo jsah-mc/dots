@@ -33,7 +33,7 @@
 				                        backupFileExtension = "bak";
                                 users.jsah-mc.imports = [
                                   ./home.nix
-                                  catppuccin.homeManagerModules.catppuccin
+                                  catppuccin.homeModules.catppuccin
                                   zen-browser.homeModules.beta
                                 ];
                             };

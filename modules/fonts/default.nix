@@ -1,8 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+with lib;
+let
+  cfg = config.modules;
+in
 {
-  home.packages = [
-    pkgs.nerd-fonts.jetbrains-mono
-    pkgs.material-symbols
-  ];
+  options.modules.fonts.enable = mkEnableOption "Enable extra fonts (JetBrainsMono Nerd Font, Material Symbols)";
+
+  config = mkIf cfg.fonts.enable {
+    home.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      material-symbols
+    ];
+
+    fonts.fontconfig.enable = true;
+  };
 }
