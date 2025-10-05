@@ -11,6 +11,7 @@
     ./waybar/default.nix
     ./wlogout/default.nix
     ./swaync/default.nix
+    ./eww/default.nix
   ];
 
 

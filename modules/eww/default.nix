@@ -1,50 +1,45 @@
-{ inputs, lib, config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
 let
-    cfg = config.modules.eww;
+  cfg = config.modules.eww;
 in {
-    options.modules.eww = { enable = mkEnableOption "eww"; };
+  options.modules.eww.enable = mkEnableOption "Eww widgets";
 
-    config = mkIf cfg.enable {
-        # theres no programs.eww.enable here because eww looks for files in .config
-        # thats why we have all the home.files
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      eww pamixer brightnessctl wofi systemd coreutils
+    ];
 
-        # eww package
-        home.packages = with pkgs; [
-            eww-wayland
-            pamixer
-            brightnessctl
-            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-        ];
-
-        # configuration
-        home.file.".config/eww/eww.scss".source = ./eww.scss;
-        home.file.".config/eww/eww.yuck".source = ./eww.yuck;
-
-        # scripts
-        home.file.".config/eww/scripts/battery.sh" = {
-            source = ./scripts/battery.sh;
-            executable = true;
-        };
-
-        home.file.".config/eww/scripts/wifi.sh" = {
-            source = ./scripts/wifi.sh;
-            executable = true;
-        };
-
-        home.file.".config/eww/scripts/brightness.sh" = {
-            source = ./scripts/brightness.sh;
-            executable = true;
-        };
-
-        home.file.".config/eww/scripts/workspaces.sh" = {
-            source = ./scripts/workspaces.sh;
-            executable = true;
-        };
-
-        home.file.".config/eww/scripts/workspaces.lua" = {
-            source = ./scripts/workspaces.lua;
-            executable = true;
-        };
+    # Files
+    home.file = {
+      ".config/eww/eww.scss".source = ./eww.scss;
+      ".config/eww/eww.yuck".source = ./eww.yuck;
+      ".config/eww/scripts" = {
+        source = ./scripts;
+        recursive = true;
+      };
     };
+
+    # Daemon + Autostart
+    systemd.user.services = {
+      eww = {
+        Unit.Description = "Eww Daemon";
+        Service = {
+          ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+          Restart = "always";
+          WorkingDirectory = "%h/.config/eww";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      "eww-open-bar" = {
+        Unit = { Description = "Open Eww bar window"; After = [ "eww.service" ]; };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.eww}/bin/eww open bar";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+    };
+  };
 }

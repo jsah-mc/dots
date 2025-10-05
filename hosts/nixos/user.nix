@@ -11,7 +11,8 @@
     apps.enable = true;
     cli.enable = true;
     rofi.enable = true;
-    waybar.enable = true;
+    waybar.enable = false;
     wlogout.enable = true;
+    eww.enable = true;
   };
 }
