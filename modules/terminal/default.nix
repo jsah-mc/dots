@@ -20,11 +20,7 @@ in
     ];
 
     xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+    xdg.configFile."kitty/mocha.conf".source = ./mocha.conf;
     home.file.".zshrc".source = ./.zshrc;
-
-    # Enable Catppuccin theme in Kitty
-    catppuccin = {
-      kitty.enable = true;
-    };
   };
 }
