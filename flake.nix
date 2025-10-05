@@ -20,10 +20,10 @@
                     modules = [
                         { networking.hostName = hostname; }
                         # General configuration (users, networking, sound, etc)
-                        ./configuration.nix
+                        ./modules/system/configuration.nix
                         # Hardware config (bootloader, kernel modules, filesystems, etc)
                         # DO NOT USE MY HARDWARE CONFIG!! USE YOUR OWN!!
-                        (./. + "/hardware-configuration.nix")
+                        (./. + "/hosts/${hostname}/hardware-configuration.nix")
                         home-manager.nixosModules.home-manager
                         {
                             home-manager = {
@@ -32,7 +32,7 @@
                                 extraSpecialArgs = { inherit inputs; };
 				                        backupFileExtension = "bak";
                                 users.jsah-mc.imports = [
-                                  ./home.nix
+                                  (./. + "/hosts/${hostname}/user.nix")
                                   catppuccin.homeModules.catppuccin
                                   zen-browser.homeModules.beta
                                 ];
