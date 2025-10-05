@@ -10,6 +10,9 @@
 window#waybar {
   background-color: @crust;
   margin: 4px 0px;
+  border-radius: 0px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;  
 }
 
 .modules-left {

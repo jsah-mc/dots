@@ -2,7 +2,7 @@
 
 {
   # ───── Imports ─────
-  imports = [ ./hardware-configuration.nix ];
+  # Sadly None :(
 
   # ───── Bootloader ─────
   boot = {

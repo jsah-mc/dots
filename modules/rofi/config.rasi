@@ -17,9 +17,9 @@ configuration {
 // Main //
 window {
     height:                      33em;
-    width:                       63em;
+    width:                       38em;
     transparency:                "real";
-    fullscreen:                  false;
+    fullscreen:                  true;
     enabled:                     true;
     cursor:                      "default";
     spacing:                     0em;
@@ -34,7 +34,7 @@ mainbox {
     spacing:                     0em;
     padding:                     0em;
     orientation:                 horizontal;
-    children:                    [ "dummywall" , "listbox" ];
+    children:                    [ "mode-switcher", "listbox" ];
     background-color:            transparent;
 }
 dummywall {
@@ -45,7 +45,6 @@ dummywall {
     orientation:                 horizontal;
     children:                    [ "mode-switcher" ];
     background-color:            transparent;
-    background-image:            url("~/.config/current_wallpaper", height);
 }
 
 
@@ -119,7 +118,7 @@ listview {
     spacing:                     0em;
     padding:                     0em;
     columns:                     1;
-    lines:                       6;
+    lines:                       24;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;

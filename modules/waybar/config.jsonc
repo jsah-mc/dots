@@ -1,21 +1,18 @@
 // -*- mode: jsonc -*-
 {
     "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
+    "position": "top", // Waybar position (top|bottom|left|right)
     "height": 26, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 8, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "margin-right": 20,
-    "margin-left": 20,
-    "margin-bottom": 5,
     "modules-left": [
 	    "custom/arch",
         "hyprland/workspaces",
         "custom/media"
     ],
     "modules-center": [
-        "clock"
+        "clock",
+        "hyprland/window"
     ],
     "modules-right": [
         //"mpd",
@@ -79,8 +76,8 @@
         "tooltip-format": "{app}: {title}"
     },
     "hyprland/window": {
-	"max-length": 24,
-	"icon": true
+	    "max-length": 24,
+	    "icon": true
     },
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
@@ -162,6 +159,14 @@
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
+    },
+    "custom/swaync": {
+        "format": "{icon} {text}",
+        "interval": 1, // Update interval, adjust as needed
+        "return-type": "json",
+        "exec": "swaync-client --subscribe-waybar", // This command outputs JSON for Waybar
+        "on-click": "swaync-client --toggle-main", // Toggles the main notification center
+        "tooltip": true
     },
     "battery#bat2": {
         "bat": "BAT2"
