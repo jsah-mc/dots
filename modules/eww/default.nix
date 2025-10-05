@@ -7,7 +7,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      eww pamixer brightnessctl wofi systemd coreutils
+      eww pamixer brightnessctl wofi systemd coreutils lua
     ];
 
     # Files
@@ -36,7 +36,7 @@ in {
         Unit = { Description = "Open Eww bar window"; After = [ "eww.service" ]; };
         Service = {
           Type = "oneshot";
-          ExecStart = "${pkgs.eww}/bin/eww open bar";
+          ExecStart = "${pkgs.eww}/bin/eww open main_bar";
         };
         Install.WantedBy = [ "graphical-session.target" ];
       };

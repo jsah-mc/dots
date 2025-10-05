@@ -1,0 +1,44 @@
+.bar {
+    background-color: #11111b;
+    padding: 0 10px;
+}
+
+/* Launcher */
+.launch {
+    color: #89b4fa;
+    background-color: #181825;
+    padding: 0 12px;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+
+.launch:hover {
+    color: #11111b;
+    background-color: #89b4fa;
+}
+
+/* Workspace buttons */
+button {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    margin: 0 4px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+button.active {
+    color: #89b4fa;
+}
+
+button.inactive {
+    color: #cdd6f4;
+}
+
+/* Clock */
+.time {
+    color: #cdd6f4;
+    background-color: #181825;
+    padding: 0 10px;
+    border-radius: 12px;
+}

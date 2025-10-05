@@ -1,27 +1,26 @@
 #!/usr/bin/env lua
+-- Outputs pre-rendered Eww buttons for workspaces
 
 function trim(s)
   return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
 end
 
-aw = io.popen("hyprctl monitors | grep active | sed 's/()/(1)/g' | sort | awk 'NR>1{print $1}' RS='(' FS=')'")
-active_workspace = aw:read("*a")
+-- Get active workspace
+local aw = io.popen("hyprctl monitors | grep 'active workspace:' | awk '{print $3}' | tr -d '()'")
+local active_workspace = trim(aw:read("*a"))
 aw:close()
 
-ew = io.popen("hyprctl workspaces | grep ID | sed 's/()/(1)/g' | sort | awk 'NR>1{print $1}' RS='(' FS=')'")
-existing_workspaces = ew:read("*a")
-ew:close()
+-- Define total workspaces
+local total = 4
 
-box = "(box :orientation \"v\" :spacing 1 :space-evenly \"true\" "
+-- Build box with buttons
+local box = "(box :orientation \"h\" :spacing 5 :halign \"start\" :valign \"center\" "
 
-for i = 1, #existing_workspaces do
-    local c = existing_workspaces:sub(i,i)
-    if tonumber(c) == tonumber(active_workspace) then
-        local btn = "(button :class \"active\" :onclick \"hyprctl dispatch workspace "..c.." \" \"\")"
-        box = box .. btn
-    elseif c ~= "\n" then
-        local btn = "(button :class \"inactive\" :onclick \"hyprctl dispatch workspace "..c.."\" \"\")"
-        box = box .. btn
+for i = 1, total do
+    if tostring(i) == active_workspace then
+        box = box .. string.format("(button :class \"active\" :onclick \"hyprctl dispatch workspace %d\" \"●\") ", i)
+    else
+        box = box .. string.format("(button :class \"inactive\" :onclick \"hyprctl dispatch workspace %d\" \"○\") ", i)
     end
 end
 
