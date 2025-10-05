@@ -1,154 +1,16 @@
-;; ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-;;   EWW CONFIG FIXED
-;; ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-(defpoll brightness :interval "999h" :initial 0 "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}'")
-(defpoll volume :interval "999h" :initial 0 "pamixer --get-volume")
-(defpoll micvolume :interval "999h" :initial 0 "pamixer --get-volume --source 1")
-
-(defpoll hour :interval "10s" "date +%H")
-(defpoll minute :interval "10s" "date +%M")
-(defpoll dateVar :interval "600s" "date '+%A %d.%m.%y'")
-
-(defpoll wifi :interval "30s" "./scripts/wifi.sh")
-(defpoll battery :interval "60s" "./scripts/battery.sh")
-(deflisten workspaces_listen "./scripts/workspaces.sh")
-
-(defvar wifi "{}")
-(defvar battery "{}")
-(defvar time false)
-(defvar cal false)
-(defvar volume-level 50)
-(defvar volume-muted false)
-(defvar bright-level 50)
-(defvar bright-muted false)
-
-;; ━━━ MAIN BAR ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 (defwidget bar []
-  (centerbox :orientation "v" :hexpand false
-    (box :valign "start" :hexpand false :vexpand true :orientation "v" :space-evenly false
-      (launch)
-      (dashbutton)
-      (powerbutton)
-    )
-    (workspaces :halign "center" :vexpand true :hexpand false :orientation "v")
-    (box :valign "end" :hexpand false :vexpand true :orientation "v" :space-evenly false
-      (battery)
-      (wifi)
-      (mem :thickness 4 :icon "")
-      (cpu :thickness 4 :icon "")
-      (disk :thickness 4 :icon "")
-      (time)
-    )
+  (box :orientation "h" :halign "start" :class "bar"
+    (label :text "" :class "launchbutton")
+  )
+  (box :orientation "h" :halign "end" :class "bar"
+    (label :text "Very Good Time :) 󰥔" :class "time")
   )
 )
 
-;; ━━━ DASHBOARD ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-(defwidget dashboard []
-  (box :orientation "v" 
-    (box :class "info_box" :orientation "v" :space-evenly false
-      (box :class "calendar_box"
-        (calendar :width 200 :class "cal")
-      )
-      (box :class "slider_box" :orientation "v"
-        (box :space-evenly false
-          (label :class "slider_icon" :text "")
-          (scale :min 1 :max 101 :width 315 :class "brightness_slider"
-                 :value brightness :onchange "brightnessctl set {}%" :height 10)
-        )
-        (box :space-evenly false
-          (label :class "slider_icon" :text "墳")
-          (scale :min 1 :max 101 :width 315 :class "volume_slider"
-                 :value volume :onchange "pamixer --set-volume $(echo {} | sed 's/[.].*$//')")
-        )
-        (box :space-evenly false
-          (label :class "slider_icon" :text "")
-          (scale :min 1 :max 101 :width 315 :class "micvolume_slider"
-                 :value micvolume :onchange "pamixer --set-volume $(echo {} | sed 's/[.].*$//') --source 1")
-        )
-      )
-      (box :class "sysinfo_box" :orientation "h" :vexpand true :spacing 15 
-        (mem :thickness 12 :icon "")
-        (cpu :thickness 12 :icon "")
-        (disk :thickness 12 :icon "")
-      )
-    )
-    (box :class "notification_box")
-  )
-)
-
-;; ━━━ BUTTONS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-(defwidget dashbutton [] (button :class "reg-btn dashbutton" :onclick "eww open dashboard --toggle" "舘"))
-(defwidget launch [] (button :class "reg-btn launchbutton" :onclick "rofi -show drun" ""))
-(defwidget powerbutton [] (button :class "reg-btn powerbutton" :onclick "eww open powermenu --toggle" ""))
-
-;; ━━━ SYSTEM INFO ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-(defwidget mem [icon thickness]
-  (circular-progress :value {EWW_RAM.used_mem_perc} :class "membar" :thickness {thickness} :start-at 75
-    (label :class "iconmem" :text {icon})
-  )
-)
-
-(defwidget cpu [icon thickness]
-  (circular-progress :value {EWW_CPU.avg} :class "cpubar" :thickness {thickness} :start-at 75
-    (label :class "iconcpu" :text {icon})
-  )
-)
-
-(defwidget disk [icon thickness]
-  (circular-progress :value {EWW_DISK["/"].used_perc} :class "diskbar" :thickness {thickness} :start-at 75
-    (label :class "icondisk" :text {icon})
-  )
-)
-
-(defwidget wifi []
-  (label :text {wifi.icon} :tooltip {wifi.status} :class "wifi")
-)
-
-(defwidget battery []
-  (label :text {battery.icon} :tooltip "${battery.status}: ${battery.percent}" :class "battery")
-)
-
-(defwidget time []
-  (box :orientation "v" :class "clock"
-    (label :class "date" :text {hour})
-    (label :class "date" :text {minute})
-  )
-)
-
-;; ━━━ WINDOWS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 (defwindow bar
   :monitor 0
-  :exclusive false
-  :geometry (geometry :x "-4px" :y "0px" :width "52px" :height "1080px" :anchor "top left")
+  :geometry (geometry :x "0px" :y "0px" :width "1860px" :height "30px" :anchor "top center")
+  :reserve (struts :distance "35px" :side "top")
   :stacking "fg"
   (bar)
 )
-
-(defwindow dashboard
-  :monitor 0
-  :geometry (geometry :x "48px" :y "0px" :width "350px" :height "1080px" :anchor "top left")
-  :stacking "fg"
-  :class "dashboard"
-  (dashboard)
-)
-
-(defwindow powermenu
-  :monitor 0
-  :geometry (geometry :x "0%" :y "0%" :width "30%" :height "15%" :anchor "center center")
-  :wm-ignore true
-  (powermenucontent)
-)
-
-(defwidget powermenucontent []
-  (box :orientation "h" :class "powermenu-container"
-    (button :class "btn" :tooltip "Shutdown" :onclick "eww close powermenu && shutdown now" "⏻")
-    (button :class "btn" :tooltip "Reboot" :onclick "eww close powermenu && reboot" "")
-    (button :class "btn" :tooltip "Suspend" :onclick "eww close powermenu && systemctl suspend" "")
-  )
-)
-
-(defwidget workspaces []
-  (literal :content workspaces_listen)
-)
-
