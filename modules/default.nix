@@ -12,6 +12,7 @@
     ./wlogout/default.nix
     ./swaync/default.nix
     ./eww/default.nix
+    ./nvim/default.nix
   ];
 
 

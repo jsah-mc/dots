@@ -14,5 +14,6 @@
     waybar.enable = true;
     wlogout.enable = true;
     eww.enable = false;
+    nvim.enable = true;
   };
 }
