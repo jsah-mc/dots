@@ -1,4 +1,3 @@
-require("lualine")
 local o = vim.opt
 local g = vim.g
 

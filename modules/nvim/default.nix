@@ -53,15 +53,11 @@ in {
                 }
                 {
                     plugin = lualine-nvim;
-                    config = "lua require('lualine').setup()";
+                    config = "lua require('lualine')";
                 }
                 {
                     plugin = telescope-nvim;
                     config = "lua require('telescope').setup()";
-                }
-                {
-                    plugin = indent-blankline-nvim;
-                    config = "lua require('indent_blankline').setup()";
                 }
                 {
                     plugin = nvim-lspconfig;
