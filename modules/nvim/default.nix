@@ -17,9 +17,13 @@ in {
     config = mkIf cfg.enable {
 
         home.file.".config/nvim/settings.lua".source = ./init.lua;
+        home.file.".config/nvim/lua" = {
+            source = ./lua;
+            recursive = true;
+        };
         
         home.packages = with pkgs; [
-            rnix-lsp nixfmt # Nix
+            nixfmt # Nix
             sumneko-lua-language-server stylua # Lua
         ];
 
@@ -39,10 +43,6 @@ in {
             plugins = with pkgs.vimPlugins; [ 
                 vim-nix
                 plenary-nvim
-                {
-                    plugin = zk-nvim;
-                    config = "require('zk').setup()";
-                }
                 {
                     plugin = jabuti-nvim;
                     config = "colorscheme jabuti";
