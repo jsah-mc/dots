@@ -9,7 +9,6 @@ in
 
   config = mkIf cfg.apps.enable {
     home.packages = with pkgs; [
-      vscodium
       nautilus
       waypaper
       wlogout
