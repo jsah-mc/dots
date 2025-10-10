@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -15,7 +20,8 @@ in
       nixfmt-rfc-style
       swww
       nwg-look
+      pnpm
+      nodejs_22
     ];
   };
 }
-
