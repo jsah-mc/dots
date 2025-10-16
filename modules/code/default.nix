@@ -23,8 +23,10 @@ in
         formulahendry.code-runner
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
+        mvllow.rose-pine
       ];
       profiles.default.userSettings = {
+        "workbench.colorTheme" = "Rosé Pine";
         "workbench.productIconTheme" = "material-product-icons";
         "window.titleBarStyle" = "native";
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
@@ -86,12 +88,6 @@ in
         "tailwindCSS.includeLanguages" = {
           "plaintext" = "html";
         };
-      };
-    };
-    catppuccin = {
-      vscode.profiles.default = {
-        icons.enable = true;
-        enable = true;
       };
     };
   };

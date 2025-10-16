@@ -1,5 +1,9 @@
-
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./hyprland/default.nix
@@ -13,8 +17,8 @@
     ./swaync/default.nix
     ./eww/default.nix
     ./code/default.nix
+    ./nvim/default.nix
   ];
-
 
   home.username = "jsah-mc";
   home.homeDirectory = "/home/jsah-mc";

@@ -1,18 +1,18 @@
 @import "mocha.css";
 
 * {
-    color: @text;
-    font-family: 'JetBrainsMono Nerd Font';
-    border-radius: 25px;
-    padding: 2px;
+  color: @text;
+  font-family: "JetBrainsMono Nerd Font";
+  border-radius: 25px;
+  padding: 2px;
 }
 
 window#waybar {
-  background-color: @crust;
+  background-color: @base;
   margin: 4px 0px;
   border-radius: 0px;
   border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;  
+  border-bottom-left-radius: 25px;
 }
 
 .modules-left {
@@ -24,7 +24,7 @@ window#waybar {
 }
 
 #workspaces {
-  background-color: @mantle;
+  background-color: @surface;
   margin: 4px 7.5px;
 }
 
@@ -44,10 +44,11 @@ window#waybar {
 #pulseaudio,
 #clock,
 #custom-power,
+#custom-notfications,
 #window {
   margin: 4px 7.5px;
   padding: 2px 4px;
-  background-color: @mantle;
+  background-color: @surface;
 }
 
 tooltip {

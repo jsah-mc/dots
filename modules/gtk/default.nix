@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -12,12 +17,8 @@ in
       enable = true;
 
       theme = {
-        name = "catppuccin-mocha-mauve-compact";
-        package = pkgs.catppuccin-gtk.override {
-          accents = [ "mauve" ];
-          size = "compact";
-          variant = "mocha";
-        };
+        name = "rose-pine";
+        package = pkgs.rose-pine-gtk-theme;
       };
 
       iconTheme = {

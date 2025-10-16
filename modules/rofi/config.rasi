@@ -19,7 +19,7 @@ window {
     height:                      33em;
     width:                       38em;
     transparency:                "real";
-    fullscreen:                  true;
+    fullscreen:                  false;
     enabled:                     true;
     cursor:                      "default";
     spacing:                     0em;
@@ -118,7 +118,7 @@ listview {
     spacing:                     0em;
     padding:                     0em;
     columns:                     1;
-    lines:                       24;
+    lines:                       6;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;

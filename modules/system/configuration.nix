@@ -17,13 +17,6 @@
     plymouth.enable = true;
   };
 
-  # ────── Theme ─────────
-  catppuccin = {
-    plymouth.enable = true;
-    grub.enable = true;
-    tty.enable = true;
-  };
-
   # ───── Networking ─────
   networking = {
     hostName = "nixos";
@@ -45,15 +38,15 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS        = "en_US.UTF-8";
+      LC_ADDRESS = "en_US.UTF-8";
       LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT    = "en_US.UTF-8";
-      LC_MONETARY       = "en_US.UTF-8";
-      LC_NAME           = "en_US.UTF-8";
-      LC_NUMERIC        = "en_US.UTF-8";
-      LC_PAPER          = "en_US.UTF-8";
-      LC_TELEPHONE      = "en_US.UTF-8";
-      LC_TIME           = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
     };
   };
 
@@ -93,24 +86,27 @@
   users.users.jsah-mc = {
     isNormalUser = true;
     description = "Joseph Sah";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
       # thunderbird
     ];
   };
-  
+
   security.sudo = {
-	enable = true;
-	extraRules = [
-		{
-			groups = [ "wheel" ];
-			commands = [ "ALL" ];
-		}
-	];
-	wheelNeedsPassword = false;
+    enable = true;
+    extraRules = [
+      {
+        groups = [ "wheel" ];
+        commands = [ "ALL" ];
+      }
+    ];
+    wheelNeedsPassword = false;
   };
-  
+
   # ───── Programs ─────
   programs = {
     firefox.enable = true;

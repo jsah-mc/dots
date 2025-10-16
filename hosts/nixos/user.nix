@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -15,5 +20,6 @@
     wlogout.enable = true;
     eww.enable = false;
     code.enable = true;
+    nvim.enable = true;
   };
 }
