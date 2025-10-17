@@ -15,6 +15,7 @@
     fonts.enable = true;
     apps.enable = true;
     cli.enable = true;
+    tmux.enable = true;
     rofi.enable = true;
     waybar.enable = true;
     wlogout.enable = true;

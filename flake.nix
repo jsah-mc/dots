@@ -8,6 +8,13 @@
     catppuccin.url = "github:catppuccin/nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     nvf.url = "github:notashelf/nvf";
+    nixvim = {
+      #url = "github:nix-community/nixvim";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of Nixvim.
+      url = "github:nix-community/nixvim/nixos-25.05";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -17,6 +24,7 @@
       catppuccin,
       zen-browser,
       nvf,
+      nixvim,
       ...
     }@inputs:
     let
@@ -46,6 +54,7 @@
                   catppuccin.homeModules.catppuccin
                   zen-browser.homeModules.beta
                   nvf.homeManagerModules.default
+                  nixvim.homeModules.nixvim
                 ];
               };
             }
