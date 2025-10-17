@@ -17,6 +17,7 @@ in
       kitty
       git
       gh
+      lazygit
     ];
 
     xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
