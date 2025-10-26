@@ -16,6 +16,11 @@
     };
     plymouth.enable = true;
   };
+  
+  # ───── Theming ─────
+  catppuccin.grub.enable = true;
+  catppuccin.plymouth.enable = true;
+  catppuccin.tty.enable = true;
 
   # ───── Networking ─────
   networking = {

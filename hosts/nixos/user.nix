@@ -19,8 +19,9 @@
     rofi.enable = true;
     waybar.enable = true;
     wlogout.enable = true;
-    eww.enable = false;
+    eww.enable = true;
     code.enable = true;
     nvim.enable = true;
+    swaync.enable = true;
   };
 }

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -7,10 +12,7 @@ in
 {
   options.modules.swaync.enable = mkEnableOption "Enable Swaync";
   config = mkIf cfg.swaync.enable {
-    home.packages = with pkgs; [
-      swaync
-    ];
-    services.swaync = { 
+    services.swaync = {
       enable = true;
       style = ''
         ${builtins.readFile ./style.css}

@@ -2,9 +2,12 @@
 {
   "layer": "top", // Waybar at top layer
   "position": "top", // Waybar position (top|bottom|left|right)
-  "height": 26, // Waybar height (to be removed for auto height)
+  "height": 10, // Waybar height (to be removed for auto height)
   // "width": 1280, // Waybar width
   "spacing": 8, // Gaps between modules (4px)
+  "margin-top": 5,
+  "margin-left": 10,
+  "margin-right": 10,
   "modules-left": ["custom/arch", "hyprland/workspaces", "custom/media"],
   "modules-center": ["clock", "hyprland/window"],
   "modules-right": [
@@ -22,7 +25,7 @@
     //"battery",
     //"battery#bat2",
     "tray",
-    "custom/Notifications",
+    "custom/notifications",
     "custom/power"
   ],
   // Modules configuration
@@ -30,17 +33,8 @@
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "default": "  ",
-      "1": " 1 ",
-      "2": " 2 ",
-      "3": " 3 ",
-      "4": " 4 ",
-      "5": " 5 ",
-      "6": " 6 ",
-      "7": " 7 ",
-      "8": " 8 ",
-      "9": " 9 ",
-      "active": " 󱓻 "
+      "default": "  ",
+      "active": ""
     },
     "persistent-workspaces": {
       "1": [],
@@ -224,17 +218,7 @@
   },
   "custom/notifications": {
     "tooltip-format": "Left: Notifications\nRight: Do not disturb",
-    "format": "{icon}",
-    "format-icons": {
-      "notification": "notifications_active",
-      "none": "notifications",
-      "dnd-notification": "notifications_active",
-      "dnd-none": "notifications_paused",
-      "inhibited-notification": "notification_important",
-      "inhibited-none": "notification_important",
-      "dnd-inhibited-notification": "notification_off",
-      "dnd-inhibited-none": "notifications_off"
-    },
+    "format": "🔔",
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",

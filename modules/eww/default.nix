@@ -7,39 +7,12 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      eww pamixer brightnessctl wofi systemd coreutils lua
-    ];
+      quickshell.packages.${system}.default
+    ]
 
-    # Files
-    home.file = {
-      ".config/eww/eww.scss".source = ./eww.scss;
-      ".config/eww/eww.yuck".source = ./eww.yuck;
-      ".config/eww/scripts" = {
-        source = ./scripts;
-        recursive = true;
-      };
-    };
-
-    # Daemon + Autostart
-    systemd.user.services = {
-      eww = {
-        Unit.Description = "Eww Daemon";
-        Service = {
-          ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
-          Restart = "always";
-          WorkingDirectory = "%h/.config/eww";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-
-      "eww-open-bar" = {
-        Unit = { Description = "Open Eww bar window"; After = [ "eww.service" ]; };
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${pkgs.eww}/bin/eww open main_bar";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
+    home.file.".config/quickshell/jsah" = {
+      source = ./shell;
+      recursive = true;
     };
   };
 }
