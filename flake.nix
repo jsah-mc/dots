@@ -33,7 +33,6 @@
       zen-browser,
       nvf,
       nixvim,
-      quickshell,
       ...
     }@inputs:
     let

@@ -4,7 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.15
 import "../"
 import "root:/"
 
