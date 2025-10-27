@@ -12,6 +12,9 @@ in
 {
   options.modules.swaync.enable = mkEnableOption "Enable Swaync";
   config = mkIf cfg.swaync.enable {
+    home.packages = [
+      pkgs.libnotify
+    ];
     services.swaync = {
       enable = true;
       style = ''

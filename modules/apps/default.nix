@@ -22,6 +22,7 @@ in
       nwg-look
       pnpm
       nodejs_22
+      flutter
     ];
   };
 }

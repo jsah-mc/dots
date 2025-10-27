@@ -24,6 +24,7 @@ in
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
         mvllow.rose-pine
+        dart-code.flutter
       ];
       profiles.default.userSettings = {
         "workbench.colorTheme" = "Rosé Pine";
