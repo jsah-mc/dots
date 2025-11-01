@@ -92,6 +92,9 @@ in {
                 userChrome = ''
                    ${builtins.readFile ./chrome.css} 
                 '';
+                userContent = ''
+                  ${builtins.readFile ./content.css}
+                '';
             };
         };
     };
