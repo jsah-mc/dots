@@ -19,9 +19,13 @@
     rofi.enable = true;
     waybar.enable = true;
     wlogout.enable = true;
+    # Quickshell but no work
     eww.enable = true;
-    code.enable = true;
+    # no need for vscode
+    code.enable = false;
+    # best editor
     nvim.enable = true;
+    # Notifications
     swaync.enable = true;
   };
 }

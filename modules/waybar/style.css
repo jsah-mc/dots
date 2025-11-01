@@ -9,7 +9,7 @@
 }
 
 window#waybar {
-  background-color: @base;
+  background-color: @overlay;
   margin: 0;
   padding: 0;
   border: none;
@@ -43,8 +43,7 @@ window#waybar {
 
 #workspaces {
   padding: 0px;
-  font-size: 20px;
-  color: @pine;
+  color: @iris;
 }
 
 #workspaces button {
@@ -58,26 +57,15 @@ window#waybar {
   padding-left: 3px;
   padding-right: 3px;
   margin-right: 0px;
-  color: @pine;
-  animation: ws_normal 20s ease-in-out 1;
+  color: @iris;
 }
 
 #workspaces button.active {
-  background: @iris;
-  color: @base;
-  margin-left: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 3px;
-  animation: ws_active 20s ease-in-out 1;
-  transition: all 0.4s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  color: @gold;
 }
 
 #workspaces button:hover {
-  background: @pine;
   color: @base;
-  animation: ws_hover 20s ease-in-out 1;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 tooltip {

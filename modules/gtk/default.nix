@@ -17,8 +17,8 @@ in
       enable = true;
 
       theme = {
-        name = "rose-pine";
-        package = pkgs.rose-pine-gtk-theme;
+        name = "Tokyonight-Dark";
+        package = pkgs.tokyonight-gtk-theme;
       };
 
       iconTheme = {

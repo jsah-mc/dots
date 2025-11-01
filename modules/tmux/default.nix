@@ -1,68 +1,67 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
   cfg = config.modules;
-    t-smart-manager = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "t-smart-tmux-session-manager";
-      version = "unstable-2023-01-06";
-      rtpFilePath = "t-smart-tmux-session-manager.tmux";
-      src = pkgs.fetchFromGitHub {
-        owner = "joshmedeski";
-        repo = "t-smart-tmux-session-manager";
-        rev = "a1e91b427047d0224d2c9c8148fb84b47f651866";
-        sha256 = "sha256-HN0hJeB31MvkD12dbnF2SjefkAVgtUmhah598zAlhQs=";
-      };
+  t-smart-manager = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "t-smart-tmux-session-manager";
+    version = "unstable-2023-01-06";
+    rtpFilePath = "t-smart-tmux-session-manager.tmux";
+    src = pkgs.fetchFromGitHub {
+      owner = "joshmedeski";
+      repo = "t-smart-tmux-session-manager";
+      rev = "a1e91b427047d0224d2c9c8148fb84b47f651866";
+      sha256 = "sha256-HN0hJeB31MvkD12dbnF2SjefkAVgtUmhah598zAlhQs=";
     };
-  tmux-nvim = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux.nvim";
-      version = "unstable-2023-01-06";
-      src = pkgs.fetchFromGitHub {
-        owner = "aserowy";
-        repo = "tmux.nvim/";
-        rev = "57220071739c723c3a318e9d529d3e5045f503b8";
-        sha256 = "sha256-zpg7XJky7PRa5sC7sPRsU2ZOjj0wcepITLAelPjEkSI=";
-      };
+  };
+  tmux-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux.nvim";
+    version = "unstable-2023-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "aserowy";
+      repo = "tmux.nvim/";
+      rev = "57220071739c723c3a318e9d529d3e5045f503b8";
+      sha256 = "sha256-zpg7XJky7PRa5sC7sPRsU2ZOjj0wcepITLAelPjEkSI=";
     };
-  tmux-browser = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-browser";
-      version = "unstable-2023-01-06";
-      src = pkgs.fetchFromGitHub {
-        owner = "ofirgall";
-        repo = "tmux-browser";
-        rev = "c3e115f9ebc5ec6646d563abccc6cf89a0feadb8";
-        sha256 = "sha256-ngYZDzXjm4Ne0yO6pI+C2uGO/zFDptdcpkL847P+HCI=";
-      };
+  };
+  tmux-browser = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux-browser";
+    version = "unstable-2023-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "ofirgall";
+      repo = "tmux-browser";
+      rev = "c3e115f9ebc5ec6646d563abccc6cf89a0feadb8";
+      sha256 = "sha256-ngYZDzXjm4Ne0yO6pI+C2uGO/zFDptdcpkL847P+HCI=";
     };
+  };
 
-  tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-super-fingers";
-      version = "unstable-2023-01-06";
-      src = pkgs.fetchFromGitHub {
-        owner = "artemave";
-        repo = "tmux_super_fingers";
-        rev = "2c12044984124e74e21a5a87d00f844083e4bdf7";
-        sha256 = "sha256-cPZCV8xk9QpU49/7H8iGhQYK6JwWjviL29eWabuqruc=";
-      };
+  tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux-super-fingers";
+    version = "unstable-2023-01-06";
+    src = pkgs.fetchFromGitHub {
+      owner = "artemave";
+      repo = "tmux_super_fingers";
+      rev = "2c12044984124e74e21a5a87d00f844083e4bdf7";
+      sha256 = "sha256-cPZCV8xk9QpU49/7H8iGhQYK6JwWjviL29eWabuqruc=";
     };
-
+  };
 
 in
 {
   options.modules.tmux.enable = mkEnableOption "Enable Tmux";
 
   config = mkIf cfg.tmux.enable {
-  programs.tmux = {
-    enable = true;
-    shell = "${pkgs.zsh}/bin/zsh";
-    terminal = "tmux-256color";
-    historyLimit = 100000;
-    plugins = with pkgs;
-      [
+    programs.tmux = {
+      enable = true;
+      shell = "${pkgs.zsh}/bin/zsh";
+      terminal = "tmux-256color";
+      historyLimit = 100000;
+      plugins = with pkgs; [
         tmux-nvim
         tmuxPlugins.tmux-thumbs
         # TODO: why do I have to manually set this
@@ -85,13 +84,6 @@ in
         }
 
         tmuxPlugins.sensible
-        # must be before continuum edits right status bar
-        {
-          plugin = tmuxPlugins.rose-pine;
-          extraConfig = '' 
-            set -g @rose_pine_variant 'main'
-          '';
-        }
         {
           plugin = tmuxPlugins.resurrect;
           extraConfig = ''
@@ -111,51 +103,64 @@ in
         tmuxPlugins.better-mouse-mode
         tmuxPlugins.yank
       ];
-    extraConfig = ''
-      set -g default-terminal "tmux-256color"
-      set -ag terminal-overrides ",xterm-256color:RGB"
+      extraConfig = ''
+        set -g default-terminal "tmux-256color"
+        set -ag terminal-overrides ",xterm-256color:RGB"
 
-      set-option -g prefix C-a
-      unbind-key C-b
-      bind-key C-a send-prefix
+        set-option -g prefix C-a
+        unbind-key C-b
+        bind-key C-a send-prefix
 
-      set -g mouse on
+        set -g mouse on
 
-      # Change splits to match nvim and easier to remember
-      # Open new split at cwd of current split
-      unbind %
-      unbind '"'
-      bind | split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
+        # Change splits to match nvim and easier to remember
+        # Open new split at cwd of current split
+        unbind %
+        unbind '"'
+        bind | split-window -h -c "#{pane_current_path}"
+        bind - split-window -v -c "#{pane_current_path}"
 
-      # Use vim keybindings in copy mode
-      set-window-option -g mode-keys vi
+        # Use vim keybindings in copy mode
+        set-window-option -g mode-keys vi
 
-      # v in copy mode starts making selection
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        # v in copy mode starts making selection
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
-      # Escape turns on copy mode
-      bind Escape copy-mode
+        # Escape turns on copy mode
+        bind Escape copy-mode
 
-      # Easier reload of config
-      bind r source-file ~/.config/tmux/tmux.conf
+        # Easier reload of config
+        bind r source-file ~/.config/tmux/tmux.conf
 
-      set-option -g status-position top
+        set-option -g status-position top
 
-      # make Prefix p paste the buffer.
-      unbind p
-      bind p paste-buffer
+        # make Prefix p paste the buffer.
+        unbind p
+        bind p paste-buffer
 
-      # Bind Keys
-      bind-key -T prefix C-g split-window \
-        "$SHELL --login -i -c 'navi --print | head -c -1 | tmux load-buffer -b tmp - ; tmux paste-buffer -p -t {last} -b tmp -d'"
-      bind-key -T prefix C-l switch -t notes
-      bind-key -T prefix C-d switch -t dotfiles
-      bind-key e send-keys "tmux capture-pane -p -S - | nvim -c 'set buftype=nofile' +" Enter
-    '';
-  };
+        # Bind Keys
+        bind-key -T prefix C-g split-window \
+          "$SHELL --login -i -c 'navi --print | head -c -1 | tmux load-buffer -b tmp - ; tmux paste-buffer -p -t {last} -b tmp -d'"
+        bind-key -T prefix C-l switch -t notes
+        bind-key -T prefix C-d switch -t dotfiles
+        bind-key e send-keys "tmux capture-pane -p -S - | nvim -c 'set buftype=nofile' +" Enter
+        # Some basic mocha colors.
+        set -g @ctp_bg "#1a1b26"
+        set -g @ctp_surface_1 "#262731ff"
+        set -g @ctp_fg "#c0caf5"
+        set -g @ctp_mauve "#7aa2f7"
+        set -g @ctp_crust "#0C0E14"
+
+        # status line
+        set -gF status-style "bg=#{@ctp_bg},fg=#{@ctp_fg}"
+
+        # windows
+        set -gF window-status-format "#[bg=#{@ctp_surface_1},fg=#{@ctp_fg}] ##I ##T "
+        set -gF window-status-current-format "#[bg=#{@ctp_mauve},fg=#{@ctp_crust}] ##I ##T "
+      '';
+    };
 
   };
 }

@@ -2,16 +2,16 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     nvf.url = "github:notashelf/nvf";
     nixvim = {
-      #url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim";
       # If you are not running an unstable channel of nixpkgs, select the corresponding branch of Nixvim.
-      url = "github:nix-community/nixvim/nixos-25.05";
+      #url = "github:nix-community/nixvim/nixos-25.05";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };

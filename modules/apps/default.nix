@@ -24,5 +24,6 @@ in
       nodejs_22
       flutter
     ];
+    programs.zen-browser.enable = true;
   };
 }

@@ -1,22 +1,22 @@
 /*
-* Variant: Rosé Pine
-* Maintainer: DankChoir
+* Variant: Rosé Pine with tokyonight
+* Maintainer: Jsah-MC
 */
 
-@define-color base            #191724;
-@define-color surface         #1f1d2e;
-@define-color overlay         #26233a;
+@define-color base            #16161e;
+@define-color surface         #1a1b26;
+@define-color overlay         #0C0E14;
 
 @define-color muted           #6e6a86;
 @define-color subtle          #908caa;
-@define-color text            #e0def4;
+@define-color text            #c0caf5;
 
 @define-color love            #eb6f92;
-@define-color gold            #f6c177;
+@define-color gold            #e0af68;
 @define-color rose            #ebbcba;
 @define-color pine            #31748f;
 @define-color foam            #9ccfd8;
-@define-color iris            #c4a7e7;
+@define-color iris            #7aa2f7;
 
 @define-color highlightLow    #21202e;
 @define-color highlightMed    #403d52;
