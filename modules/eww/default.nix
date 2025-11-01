@@ -17,7 +17,9 @@ in
   config = mkIf cfg.enable {
     home.packages = [
       inputs.quickshell.packages.x86_64-linux.default
-      pkgs.kdePackages.qt5compat
+      #pkgs.kdePackages.qt5compat
+      pkgs.qt6.qt5compat
+      pkgs.qt6.qtbase
     ];
 
     home.file.".config/quickshell/jsah" = {

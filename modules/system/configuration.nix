@@ -21,7 +21,7 @@
   catppuccin.grub.enable = true;
   catppuccin.plymouth.enable = true;
   catppuccin.tty.enable = true;
-
+  catppuccin.sddm.enable = true;
   # ───── Networking ─────
   networking = {
     hostName = "nixos";
@@ -131,7 +131,14 @@
     wget
     git
   ];
+  # ───── Virtualisation ─────
+  programs.virt-manager.enable = true;
 
+  users.groups.libvirtd.members = ["jsah-mc"];
+
+  virtualisation.libvirtd.enable = true;
+
+  virtualisation.spiceUSBRedirection.enable = true;
   # ───── Nix ─────
   nixpkgs.config.allowUnfree = true;
 

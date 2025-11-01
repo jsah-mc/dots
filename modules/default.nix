@@ -19,6 +19,7 @@
     ./code/default.nix
     ./nvim/default.nix
     ./tmux/default.nix
+    ./firefox/default.nix
   ];
 
   home.username = "jsah-mc";

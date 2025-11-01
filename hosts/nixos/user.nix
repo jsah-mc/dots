@@ -19,6 +19,8 @@
     rofi.enable = true;
     waybar.enable = true;
     wlogout.enable = true;
+    # Web browser
+    firefox.enable = true;
     # Quickshell but no work
     eww.enable = true;
     # no need for vscode

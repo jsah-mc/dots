@@ -18,10 +18,14 @@ Singleton {
         Hyprland.dispatch(`workspace ${w}`);
     }
 
+    function isWorkspaceOccupied(id: int): bool {
+        return hyprland.workspaces.some(ws => ws?.id === id && ws?.windows?.values?.length > 0);
+    }
+
     function findMaxId(): int {
         if (hyprland.workspaces.length === 0) {
             console.log("No workspaces found, defaulting to 1");
-            return 1; // Return 1 if no workspaces exist
+            return 1;
         }
         let num = hyprland.workspaces.length;
         let maxId = hyprland.workspaces[num - 1]?.id || 1;

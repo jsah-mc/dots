@@ -3,8 +3,6 @@ import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Effects
-import Qt5Compat.GraphicalEffects
 
 Text {
   property string mainFont: "FiraCode"
@@ -22,22 +20,9 @@ Text {
     pointSize: pointSize
   }
 
-  Text {
-    visible: false
-    id: textcopy
-    text: parent.text
-    textFormat: parent.textFormat
-    color: parent.color
-    font: parent.font
-  }
-
-  DropShadow {
-    anchors.fill: parent
-    horizontalOffset: 1
-    verticalOffset: 1
-    color: "#000000"
-    source: textcopy
-  }
+  // CSS-based text shadow as alternative to DropShadow
+  style: Text.Outline
+  styleColor: "#000000"
 
   function wrapSymbols(text) {
     if (!text)
@@ -50,8 +35,6 @@ Text {
 
     return text.replace(/./gu, (c) => isSymbol(c.codePointAt(0))
       ? `<span style='font-family: ${symbolFont}; letter-spacing: 5px; font-size: ${symbolSize}px'>${c}</span>`
-      // ? c
       : c);
   }
 }
-

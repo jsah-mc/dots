@@ -4,18 +4,24 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
-import QtGraphicalEffects 1.15
 import "../"
 import "root:/"
 
 BarBlock {
   id: root
   Layout.preferredWidth: 20
-  content: BarText {
-    text: "󰣇"
-    pointSize: 12
-    anchors.horizontalCenterOffset: 5
-    anchors.verticalCenterOffset: 0
+  
+  content: Item {
+    implicitWidth: iconText.implicitWidth
+    implicitHeight: iconText.implicitHeight
+    
+    BarText {
+      id: iconText
+      text: "󰣇"
+      pointSize: 12
+      anchors.horizontalCenterOffset: 5
+      anchors.verticalCenterOffset: 0
+    }
   }
   
   color: "transparent"
@@ -29,7 +35,6 @@ BarBlock {
   
   Process {
     id: launcher
-    command: ["rofi", "-show", "drun"]  // Replace with your program
-    // Or with arguments: command: ["rofi", "-show", "drun"]
+    command: ["rofi", "-show", "drun"]
   }
 }

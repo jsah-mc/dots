@@ -23,6 +23,10 @@
       # Mismatched system dependencies will lead to crashes and other issues.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -33,6 +37,7 @@
       zen-browser,
       nvf,
       nixvim,
+      nur,
       ...
     }@inputs:
     let
@@ -65,6 +70,10 @@
                   nixvim.homeModules.nixvim
                 ];
               };
+              nixpkgs.overlays = [
+                # Add nur overlay for Firefox addons
+                nur.overlay
+              ];
             }
             catppuccin.nixosModules.catppuccin
           ];

@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Widgets
-import Qt5Compat.GraphicalEffects
 import "../utils" as Utils
 import "root:/"
 
@@ -19,6 +18,19 @@ RowLayout {
         border.color: "#cba6f7"
         border.width: 1
         opacity: 0.95
+
+        // Optional: Add a subtle shadow effect using a secondary rectangle
+        Rectangle {
+            anchors.fill: parent
+            anchors.topMargin: 2
+            anchors.leftMargin: 1
+            anchors.rightMargin: -1
+            anchors.bottomMargin: -2
+            radius: parent.radius
+            color: "#66000000"
+            z: -1
+            visible: Theme.get.buttonBorderShadow
+        }
 
         Row {
             anchors.centerIn: parent
@@ -60,16 +72,6 @@ RowLayout {
                     }
                 }
             }
-        }
-
-        // Optional soft drop shadow if your theme allows
-        layer.enabled: Theme.get.buttonBorderShadow
-        layer.effect: DropShadow {
-            radius: 6
-            samples: 12
-            color: "#66000000"
-            horizontalOffset: 0
-            verticalOffset: 2
         }
     }
 }

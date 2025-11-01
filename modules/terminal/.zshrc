@@ -5,6 +5,9 @@ plug "zap-zsh/supercharge"
 plug "zap-zsh/zap-prompt"
 plug "zsh-users/zsh-syntax-highlighting"
 
+# env 
+export SUDO_PROMPT="Running elevated prompt for %u. Password please: "
+
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
