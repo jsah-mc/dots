@@ -13,9 +13,8 @@ in
   options.modules.wallaper.enable = mkEnableOption "Enable Wallapers";
 
   config = mkIf cfg.wallpaper.enable {
-    home.file."wallpaper" = {
-      source = ./wallpapers;
-      recursive = true;
-    };
+    home.programs = with pkgs; [
+      zsh-syntax-highlighting
+    ];
   };
 }
